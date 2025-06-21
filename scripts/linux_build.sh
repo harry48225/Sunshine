@@ -570,7 +570,7 @@ elif grep -q "Ubuntu 22.04" /etc/os-release; then
   package_update_command="${sudo_cmd} apt-get update"
   package_install_command="${sudo_cmd} apt-get install -y"
   cuda_version="11.4.0"
-  cuda_build="470.256.02"
+  cuda_build="470.42.01"
   gcc_version="11"
   nvm_node=1
 elif grep -q "Ubuntu 24.04" /etc/os-release; then
