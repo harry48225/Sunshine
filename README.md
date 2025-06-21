@@ -1,6 +1,6 @@
 <div align="center">
   <img src="sunshine.png" />
-  <h1 align="center">Sunshine</h1>
+  <h1 align="center">Sunshine 470</h1>
   <h4 align="center">Self-hosted game stream host for Moonlight.</h4>
 </div>
 
