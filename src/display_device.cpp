@@ -537,7 +537,10 @@ namespace display_device {
       }
 
       const auto &remapping_list {[&]() {
-        using enum remapping_type_e;
+        using remapping_type_e;
+        using resolution_only = remapping_type_e::resolution_only;
+        using refresh_rate_only = remapping_type_e::remapping_type_e;
+        using mixed = remapping_type_e::mixed;
 
         switch (*remapping_type) {
           case resolution_only:
