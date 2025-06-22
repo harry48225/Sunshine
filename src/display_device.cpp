@@ -269,29 +269,17 @@ namespace display_device {
      * @examples_end
      */
     std::optional<SingleDisplayConfiguration::DevicePreparation> parse_device_prep_option(const config::video_t &video_config) {
-      using config_option_e = config::video_t::dd_t::config_option_e;
-      using verify_only = config_option_e::verify_only;
-      using ensure_active = config_option_e::ensure_active;
-      using ensure_primary = config_option_e::ensure_primary;
-      using ensure_only_display = config_option_e::ensure_only_display;
-      using disabled = config_option_e::disabled;
-      
-      using DevicePreparation = SingleDisplayConfiguration::DevicePreparation;
-      using VerifyOnly = DevicePreparation::VerifyOnly;
-      using EnsureActive = DevicePreparation::EnsureActive;
-      using EnsurePrimary = DevicePreparation::EnsurePrimary;
-      using EnsureOnlyDisplay = DevicePreparation::EnsureOnlyDisplay;
 
       switch (video_config.dd.configuration_option) {
-        case verify_only:
-          return VerifyOnly;
-        case ensure_active:
-          return EnsureActive;
-        case ensure_primary:
-          return EnsurePrimary;
-        case ensure_only_display:
-          return EnsureOnlyDisplay;
-        case disabled:
+        case config::video_t::dd_t::config_option_e::verify_only:
+          return SingleDisplayConfiguration::DevicePreparation::VerifyOnly;
+        case config::video_t::dd_t::config_option_e::ensure_active:
+          return SingleDisplayConfiguration::DevicePreparation::EnsureActive;
+        case config::video_t::dd_t::config_option_e::ensure_primary:
+          return SingleDisplayConfiguration::DevicePreparation::EnsurePrimary;
+        case config::video_t::dd_t::config_option_e::ensure_only_display:
+          return SingleDisplayConfiguration::DevicePreparation::EnsureOnlyDisplay;
+        case config::video_t::dd_t::config_option_e::disabled:
           break;
       }
 
@@ -537,17 +525,13 @@ namespace display_device {
       }
 
       const auto &remapping_list {[&]() {
-        using remapping_type_e;
-        using resolution_only = remapping_type_e::resolution_only;
-        using refresh_rate_only = remapping_type_e::remapping_type_e;
-        using mixed = remapping_type_e::mixed;
 
         switch (*remapping_type) {
-          case resolution_only:
+          case remapping_type_e::resolution_only:
             return video_config.dd.mode_remapping.resolution_only;
-          case refresh_rate_only:
+          case remapping_type_e::refresh_rate_only:
             return video_config.dd.mode_remapping.refresh_rate_only;
-          case mixed:
+          case remapping_type_e::mixed:
           default:
             return video_config.dd.mode_remapping.mixed;
         }
@@ -696,13 +680,10 @@ namespace display_device {
           return;
         }
 
-        using RevertResult = SettingsManagerInterface::RevertResult;
-        using Ok = RevertResult::Ok
-        using ApiTemporarilyUnavailable = RevertResult::ApiTemporarilyUnavailable
-        if (const auto result {settings_iface.revertSettings()}; result == Ok) {
+        if (const auto result {settings_iface.revertSettings()}; result == SettingsManagerInterface::RevertResult::Ok) {
           stop_token.requestStop();
           return;
-        } else if (result == ApiTemporarilyUnavailable) {
+        } else if (result == SettingsManagerInterface::RevertResult::ApiTemporarilyUnavailable) {
           // Do nothing and retry next time
           return;
         }
