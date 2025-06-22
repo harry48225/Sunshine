@@ -269,18 +269,18 @@ namespace display_device {
      * @examples_end
      */
     std::optional<SingleDisplayConfiguration::DevicePreparation> parse_device_prep_option(const config::video_t &video_config) {
-      using config::video_t::dd_t::config_option_e;
+      using config_option_e = config::video_t::dd_t::config_option_e;
       using verify_only = config_option_e::verify_only;
       using ensure_active = config_option_e::ensure_active;
       using ensure_primary = config_option_e::ensure_primary;
       using ensure_only_display = config_option_e::ensure_only_display;
       using disabled = config_option_e::disabled;
       
-      using SingleDisplayConfiguration::DevicePreparation;
-      using VerifyOnly = SingleDisplayConfiguration::VerifyOnly;
-      using EnsureActive = SingleDisplayConfiguration::EnsureActive;
-      using EnsurePrimary = SingleDisplayConfiguration::EnsurePrimary;
-      using EnsureOnlyDisplay = SingleDisplayConfiguration::EnsureOnlyDisplay;
+      using DevicePreparation = SingleDisplayConfiguration::DevicePreparation;
+      using VerifyOnly = DevicePreparation::VerifyOnly;
+      using EnsureActive = DevicePreparation::EnsureActive;
+      using EnsurePrimary = DevicePreparation::EnsurePrimary;
+      using EnsureOnlyDisplay = DevicePreparation::EnsureOnlyDisplay;
 
       switch (video_config.dd.configuration_option) {
         case verify_only:
