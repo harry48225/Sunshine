@@ -462,32 +462,32 @@ namespace {
     rtsp_stream::launch_session_t session {};
 
     {  // resolution
-      using enum resolution_option_e;
+      //using enum resolution_option_e;
 
       if (const auto *no_res {std::get_if<no_value_t>(&input_res)}; no_res) {
-        video_config.dd.resolution_option = disabled;
+        video_config.dd.resolution_option = resolution_option_e::disabled;
       } else if (const auto *auto_res {std::get_if<auto_value_t<res_t>>(&input_res)}; auto_res) {
-        video_config.dd.resolution_option = automatic;
+        video_config.dd.resolution_option = resolution_option_e::automatic;
         session.width = static_cast<int>(auto_res->value.m_width);
         session.height = static_cast<int>(auto_res->value.m_height);
       } else {
         const auto [manual_res] = std::get<manual_value_t<res_t>>(input_res);
-        video_config.dd.resolution_option = manual;
+        video_config.dd.resolution_option = resolution_option_e::manual;
         video_config.dd.manual_resolution = std::to_string(manual_res.m_width) + "x"s + std::to_string(manual_res.m_height);
       }
     }
 
     {  // fps
-      using enum refresh_rate_option_e;
+      //using enum refresh_rate_option_e;
 
       if (const auto *no_fps {std::get_if<no_value_t>(&input_fps)}; no_fps) {
-        video_config.dd.refresh_rate_option = disabled;
+        video_config.dd.refresh_rate_option = refresh_rate_option_e::disabled;
       } else if (const auto *auto_fps {std::get_if<auto_value_t<fps_t>>(&input_fps)}; auto_fps) {
-        video_config.dd.refresh_rate_option = automatic;
+        video_config.dd.refresh_rate_option = refresh_rate_option_e::automatic;
         session.fps = auto_fps->value;
       } else {
         const auto [manual_fps] = std::get<manual_value_t<fps_t>>(input_fps);
-        video_config.dd.refresh_rate_option = manual;
+        video_config.dd.refresh_rate_option = refresh_rate_option_e::manual;
         video_config.dd.manual_refresh_rate = std::to_string(manual_fps);
       }
     }
