@@ -696,7 +696,9 @@ namespace display_device {
           return;
         }
 
-        using enum SettingsManagerInterface::RevertResult;
+        using RevertResult = SettingsManagerInterface::RevertResult;
+        using Ok = RevertResult::Ok
+        using ApiTemporarilyUnavailable = RevertResult::ApiTemporarilyUnavailable
         if (const auto result {settings_iface.revertSettings()}; result == Ok) {
           stop_token.requestStop();
           return;
